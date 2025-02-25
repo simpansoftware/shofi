@@ -1,0 +1,32 @@
+#!/bin/bash
+
+init () {
+   touch ~/.shofi
+}
+
+echo shofi
+sleep 3
+
+if ! [ -f ~/.shofi ]; then
+    echo "WARNING!"
+    echo "This script will not work without zenity installed."
+    echo "Do you wanna init script?"
+    echo "y/N"
+    read init
+    if [ -z "$init" ]; then
+        init="n"
+    fi
+    if [ $init = y ]; then
+        init
+    else
+        exit 0
+    fi
+fi
+
+echo Loading...
+
+app_name=$(zenity --entry --title="shofi" \
+    --text="Open app here:")
+
+bash -c "$app_name"
+exit 0
